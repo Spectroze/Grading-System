@@ -387,7 +387,7 @@ public class registration extends javax.swing.JFrame {
     }//GEN-LAST:event_registerbtnActionPerformed
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
-     in loginIntance = new in();
+     login loginIntance = new login();
         loginIntance.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel2MouseClicked

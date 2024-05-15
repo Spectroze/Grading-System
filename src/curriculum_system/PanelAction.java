@@ -36,6 +36,14 @@ public class PanelAction extends javax.swing.JPanel {
                 event.onDelete(row);
             }
 });
+ 
+ cmdPrint.addActionListener(new ActionListener(){
+            
+            @Override
+            public void actionPerformed(ActionEvent ae){
+                event.onPrint(row);
+            }
+});
 
         
     }
@@ -53,36 +61,52 @@ public class PanelAction extends javax.swing.JPanel {
 
         cmdEdit = new javax.swing.JButton();
         cmdDelete = new javax.swing.JButton();
+        cmdPrint = new javax.swing.JButton();
 
         cmdEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/edits1.png"))); // NOI18N
 
-        cmdDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/delete (1).png"))); // NOI18N
+        cmdDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/delete.png"))); // NOI18N
+        cmdDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdDeleteActionPerformed(evt);
+            }
+        });
+
+        cmdPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/download.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(cmdEdit)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(cmdDelete)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cmdPrint)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cmdDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(cmdPrint)
                     .addComponent(cmdDelete)
                     .addComponent(cmdEdit))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cmdDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdDeleteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmdDeleteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cmdDelete;
     private javax.swing.JButton cmdEdit;
+    private javax.swing.JButton cmdPrint;
     // End of variables declaration//GEN-END:variables
 }
