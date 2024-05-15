@@ -160,30 +160,7 @@ public class grades extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_AddMousePressed
 
     private void AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddActionPerformed
-        // Create an instance of the addLab window
-        addStudent addStudentWindow = new addStudent();
-
-        // Calculate the center position for the addLab window
-        int x = this.getX() + (this.getWidth() - addStudentWindow.getWidth()) / 2;
-        int y = this.getY() + (this.getHeight() - addStudentWindow.getHeight()) / 2;
-
-        // Set the location of the addLab window
-        addStudentWindow.setLocation(x, y);
-
-        // Show the addLab window
-        addStudentWindow.setVisible(true);
-
-        // Add a window listener to detect when the addLab window is closed
-        addStudentWindow.addWindowListener((WindowListener) new WindowAdapter() {
-            public void windowClosed(WindowEvent e) {
-                // Check if the window was closed by the user (not disposed)
-                if (e.getNewState() == WindowEvent.WINDOW_CLOSED) {
-                    // Bring the labs window to the front
-                    setVisible(true);
-                    toFront();
-                }
-            }
-        });
+       
     }//GEN-LAST:event_AddActionPerformed
 
 

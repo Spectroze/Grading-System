@@ -1,43 +1,40 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package curriculum_system;
 
-import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.PreparedStatement;
+import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 /**
  *
- * @author Edmar
+ * @author Kenneth
  */
-public class addStudent extends javax.swing.JFrame {
+public class addAPlist extends javax.swing.JDialog {
 
-    /**
-     * Creates new form addStudent
-     */
+   Connection con;
     
-    Connection con;
-    
-    public addStudent() {
+    public addAPlist(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
-        Connect ();
+   Connect();
     }
-    
-        public void Connect(){
+
+    public void Connect(){
          try {
            Class.forName("com.mysql.jdbc.Driver");
-           con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/curriculum_db","root", "12345");
+           con = DriverManager.getConnection("jdbc:mysql://localhost/curriculum_db","root", "12345");
        } catch (ClassNotFoundException | SQLException ex) {
-           Logger.getLogger(addStudent.class.getName()).log(Level.SEVERE, null, ex);
+           Logger.getLogger(addAPlist.class.getName()).log(Level.SEVERE, null, ex);
        }
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -83,7 +80,7 @@ public class addStudent extends javax.swing.JFrame {
         jLabel22 = new javax.swing.JLabel();
         ITTrends100 = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(29, 6, 94));
 
@@ -430,7 +427,7 @@ public class addStudent extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void fullnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fullnameActionPerformed
-       
+
     }//GEN-LAST:event_fullnameActionPerformed
 
     private void phoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_phoneActionPerformed
@@ -438,15 +435,15 @@ public class addStudent extends javax.swing.JFrame {
     }//GEN-LAST:event_phoneActionPerformed
 
     private void maleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maleActionPerformed
-        
+
     }//GEN-LAST:event_maleActionPerformed
 
     private void femaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_femaleActionPerformed
-       
+
     }//GEN-LAST:event_femaleActionPerformed
 
     private void studentsidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentsidActionPerformed
-        
+
     }//GEN-LAST:event_studentsidActionPerformed
 
     private void specializationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_specializationActionPerformed
@@ -454,76 +451,67 @@ public class addStudent extends javax.swing.JFrame {
     }//GEN-LAST:event_specializationActionPerformed
 
     private void registerbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerbtnActionPerformed
-    String fullName = fullname.getText();
-    String phoneNumber = phone.getText();
-    String userGender = male.isSelected() ? "Male" : "Female";
-    String userId = studentsid.getText();
-    String userSpecialization = specialization.getText();
-    
-    
-    double gradeIAS101 = Double.parseDouble(IAS101.getText());
-    double gradeMS102 = Double.parseDouble(MS102.getText());
-    double gradeITTrends100 = Double.parseDouble(ITTrends100.getText());
-    double gradeSA101 = Double.parseDouble(SA101.getText());
-    double gradeITElec1 = Double.parseDouble(ITElec1.getText());
-    double gradeMST100 = Double.parseDouble(MST100.getText());
-    double gradeVD101 = Double.parseDouble(VD101.getText());
-    
-    
+        String fullName = fullname.getText();
+        String phoneNumber = phone.getText();
+        String userGender = male.isSelected() ? "Male" : "Female";
+        String userId = studentsid.getText();
+        String userSpecialization = specialization.getText();
 
-        
-        try {
-            
-            PreparedStatement stmt = con.prepareStatement("INSERT INTO grades (fullname, phone, gender, studentsid, specialization, IAS101, MS102, ITTrends100, SA101, ITElec1, MST100, VD101) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            stmt.setString(1, fullName);
-        stmt.setString(2, phoneNumber);
-        stmt.setString(3, userGender);
-        stmt.setString(4, userId);
-        stmt.setString(5, userSpecialization);
-        stmt.setDouble(6, gradeIAS101);
-        stmt.setDouble(7, gradeMS102);
-        stmt.setDouble(8, gradeITTrends100);
-        stmt.setDouble(9, gradeSA101);
-        stmt.setDouble(10, gradeITElec1);
-        stmt.setDouble(11, gradeMST100);
-        stmt.setDouble(12, gradeVD101);
-                
+        // Validate and parse grades
+        double gradeIAS101 = parseGrade(IAS101.getText());
+        double gradeMS102 = parseGrade(MS102.getText());
+        double gradeITTrends100 = parseGrade(ITTrends100.getText());
+        double gradeSA101 = parseGrade(SA101.getText());
+        double gradeITElec1 = parseGrade(ITElec1.getText());
+        double gradeMST100 = parseGrade(MST100.getText());
+        double gradeVD101 = parseGrade(VD101.getText());
 
-                
-                
-            // Execute the SQL statement
-        int rowsInserted = stmt.executeUpdate();
-        if (rowsInserted > 0) {
-            JOptionPane.showMessageDialog(this, "Student and grades added successfully!");
-            // Clear input fields after successful insertion
-            clearFields();
-        } else {
-            JOptionPane.showMessageDialog(this, "Failed to add student and grades. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+        if (gradeIAS101 < 0 || gradeMS102 < 0 || gradeITTrends100 < 0 || gradeSA101 < 0 ||
+            gradeITElec1 < 0 || gradeMST100 < 0 || gradeVD101 < 0) {
+            JOptionPane.showMessageDialog(this, "Please enter valid grades for all subjects.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+            return;
         }
-    } catch (SQLException ex) {
-        Logger.getLogger(addStudent.class.getName()).log(Level.SEVERE, null, ex);
-        JOptionPane.showMessageDialog(this, "An error occurred while adding student and grades. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
-    } catch (NumberFormatException ex) {
-        JOptionPane.showMessageDialog(this, "Please enter valid grades for all subjects.", "Error", JOptionPane.ERROR_MESSAGE);
-    }   
-        
-        
+
+        try {
+            String sql = "INSERT INTO grades (fullname, phone, gender, studentsid, specialization, IAS101, MS102, ITTrends100, SA101, ITElec1, MST100, VD101) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement stmt = (PreparedStatement) con.prepareStatement(sql);
+            stmt.setString(1, fullName);
+            stmt.setString(2, phoneNumber);
+            stmt.setString(3, userGender);
+            stmt.setString(4, userId);
+            stmt.setString(5, userSpecialization);
+            stmt.setDouble(6, gradeIAS101);
+            stmt.setDouble(7, gradeMS102);
+            stmt.setDouble(8, gradeITTrends100);
+            stmt.setDouble(9, gradeSA101);
+            stmt.setDouble(10, gradeITElec1);
+            stmt.setDouble(11, gradeMST100);
+            stmt.setDouble(12, gradeVD101);
+
+            // Execute the INSERT statement
+            int rowsInserted = stmt.executeUpdate();
+            if (rowsInserted > 0) {
+                JOptionPane.showMessageDialog(this, "Data inserted successfully.");
+            }
+        } catch (SQLException ex) {
+            // Handle any SQL exceptions
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error inserting data: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        }
+
+        private double parseGrade(String gradeText) {
+            if (gradeText == null || gradeText.trim().isEmpty()) {
+                return -1; // Indicate an invalid grade
+            }
+            try {
+                return Double.parseDouble(gradeText);
+            } catch (NumberFormatException e) {
+                return -1; // Indicate an invalid grade
+            }
+
     }//GEN-LAST:event_registerbtnActionPerformed
-    private void clearFields() {
-    fullname.setText("");
-    phone.setText("");
-    male.setSelected(false);
-    female.setSelected(false);
-    studentsid.setText("");
-    specialization.setText("");
-    IAS101.setText("");
-    MS102.setText("");
-    SA101.setText("");
-    ITElec1.setText("");
-    MST100.setText("");
-    VD101.setText("");
-    ITTrends100.setText("");
-}
+
     private void IAS101ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IAS101ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_IAS101ActionPerformed
@@ -569,20 +557,27 @@ public class addStudent extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(addStudent.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(addAPlist.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(addStudent.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(addAPlist.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(addStudent.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(addAPlist.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(addStudent.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(addAPlist.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new addStudent().setVisible(true);
+                addAPlist dialog = new addAPlist(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }
