@@ -27,13 +27,13 @@ import javax.swing.table.TableCellEditor;
  *
  * @author Edmar
  */
-public class AP1grades extends javax.swing.JInternalFrame {
+public class DD1grades extends javax.swing.JInternalFrame {
 
    
     
     Connection con;
     
-    public AP1grades() {
+    public DD1grades() {
         initComponents();
         Connect ();
         updateGWAInDatabase();

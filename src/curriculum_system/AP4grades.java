@@ -66,19 +66,20 @@ public class AP4grades extends javax.swing.JInternalFrame {
         
     
     
-     public void Connect(){
-         try {
-           Class.forName("com.mysql.jdbc.Driver");
-           con = DriverManager.getConnection("jdbc:mysql://localhost/curriculum_db","root", "12345");
-       } catch (ClassNotFoundException | SQLException ex) {
-           Logger.getLogger(add2ndGrades.class.getName()).log(Level.SEVERE, null, ex);
-       }
+    public void Connect(){
+    try {
+        Class.forName("com.mysql.jdbc.Driver");
+        con = DriverManager.getConnection("jdbc:mysql://localhost/curriculum_db","root", "12345");
+    } catch (ClassNotFoundException | SQLException ex) {
+        Logger.getLogger(add2ndGrades.class.getName()).log(Level.SEVERE, null, ex);
     }
+}
+
 
     
 private void updateGWAInDatabase() {
-    String querySelect = "SELECT fullname, IAS101, MS102, ITTrends100, SA101, ITElec1, MST100, VD101 FROM grades";
-    String queryUpdate = "UPDATE grades SET GWA = ? WHERE fullname = ?";
+    String querySelect = "SELECT fullname, CAP102, SP101, ITElec4, ITElec5, IAS102, ITEngl100 FROM fourthyear1stsem";
+    String queryUpdate = "UPDATE fourth1stsem SET GWA = ? WHERE fullname = ?";
     
     try (Statement stmtSelect = con.createStatement();
          ResultSet rs = stmtSelect.executeQuery(querySelect);
@@ -86,16 +87,16 @@ private void updateGWAInDatabase() {
         
         while (rs.next()) {
             String fullname = rs.getString("fullname");
-            double IAS101 = rs.getDouble("IAS101");
-            double MS102 = rs.getDouble("MS102");
-            double ITTrends100 = rs.getDouble("ITTrends100");
-            double SA101 = rs.getDouble("SA101");
-            double ITElec1 = rs.getDouble("ITElec1");
-            double MST100 = rs.getDouble("MST100");
-            double VD101 = rs.getDouble("VD101");
+            double CAP102 = rs.getDouble("CAP102");
+            double SP101 = rs.getDouble("SP101");
+            double ITElec4 = rs.getDouble("ITElec4");
+            double ITElec5 = rs.getDouble("ITElec5");
+            double IAS102 = rs.getDouble("IAS102");
+            double ITEngl100 = rs.getDouble("ITEngl100");
+         
 
             // Calculate GWA
-            double gwa = (IAS101 + MS102 + ITTrends100 + SA101 + ITElec1 + MST100 + VD101) / 7;
+            double gwa = (CAP102 + SP101 + ITElec4 + ITElec5 + IAS102 + ITEngl100 ) / 6;
 
             // Update the GWA in the database
             stmtUpdate.setDouble(1, gwa);
@@ -112,7 +113,7 @@ private void updateGWAInDatabase() {
 
 private void populateTable() {
     try {
-        String query = "SELECT fullname, IAS101, MS102, ITTrends100, SA101, ITElec1, MST100, VD101 FROM grades";
+        String query = "SELECT fullname, CAP102, SP101, ITElec4, ITElec5, IAS102, ITEngl100 FROM fourthyear1stsem";
         try (Statement stmt = con.createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
             DefaultTableModel model = (DefaultTableModel) table.getModel();
@@ -123,30 +124,30 @@ private void populateTable() {
 
             // Iterate over the result set and add rows to the table model
             while (rs.next()) {
-                String fullname = rs.getString("fullname");
-                double IAS101 = rs.getDouble("IAS101");
-                double MS102 = rs.getDouble("MS102");
-                double ITTrends100 = rs.getDouble("ITTrends100");
-                double SA101 = rs.getDouble("SA101");
-                double ITElec1 = rs.getDouble("ITElec1");
-                double MST100 = rs.getDouble("MST100");
-                double VD101 = rs.getDouble("VD101");
+            String fullname = rs.getString("fullname");
+            double CAP102 = rs.getDouble("CAP102");
+            double SP101 = rs.getDouble("SP101");
+            double ITElec4 = rs.getDouble("ITElec4");
+            double ITElec5 = rs.getDouble("ITElec5");
+            double IAS102 = rs.getDouble("IAS102");
+            double ITEngl100 = rs.getDouble("ITEngl100");
+         
 
                 // Calculate GWA
-                double GWA = (IAS101 + MS102 + ITTrends100 + SA101 + ITElec1 + MST100 + VD101) / 7;
+                 double gwa = (CAP102 + SP101 + ITElec4 + ITElec5 + IAS102 + ITEngl100 ) / 6;
                 
                 // Format GWA to display only two decimal places
-                String formattedGWA = df.format(GWA);
+                String formattedGWA = df.format(gwa);
 
                 Object[] row = {
                     fullname,
-                    IAS101,
-                    MS102,
-                    ITTrends100,
-                    SA101,
-                    ITElec1,
-                    MST100,
-                    VD101,
+                    CAP102,
+                    SP101,
+                    ITElec4,
+                    ITElec5,
+                    IAS102,
+                    ITEngl100,
+        
                     formattedGWA // Use the formatted GWA value
                 };
                 model.addRow(row);

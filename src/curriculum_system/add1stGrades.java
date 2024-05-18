@@ -61,7 +61,7 @@ public class add1stGrades extends javax.swing.JDialog {
         jLabel9 = new javax.swing.JLabel();
         studentsid = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        specialization = new javax.swing.JTextField();
+        yearlevel = new javax.swing.JTextField();
         registerbtn = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         CC100 = new javax.swing.JTextField();
@@ -184,9 +184,9 @@ public class add1stGrades extends javax.swing.JDialog {
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel12.setText("Year Level:");
 
-        specialization.addActionListener(new java.awt.event.ActionListener() {
+        yearlevel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                specializationActionPerformed(evt);
+                yearlevelActionPerformed(evt);
             }
         });
 
@@ -216,7 +216,7 @@ public class add1stGrades extends javax.swing.JDialog {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(phone, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(studentsid, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(specialization, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(yearlevel, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(male, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -255,7 +255,7 @@ public class add1stGrades extends javax.swing.JDialog {
                     .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(specialization, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(yearlevel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12))
                 .addGap(51, 51, 51)
                 .addComponent(registerbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -356,14 +356,13 @@ public class add1stGrades extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(NSTP100, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(PE1, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
-                        .addComponent(GE4, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(GE1, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(GE5, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(IM101, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(CC101, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(CC100, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addComponent(PE1, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
+                    .addComponent(GE4, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(GE1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(GE5, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(IM101, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(CC101, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(CC100, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(50, 50, 50))
         );
         jPanel4Layout.setVerticalGroup(
@@ -464,47 +463,49 @@ public class add1stGrades extends javax.swing.JDialog {
 
     }//GEN-LAST:event_studentsidActionPerformed
 
-    private void specializationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_specializationActionPerformed
+    private void yearlevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yearlevelActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_specializationActionPerformed
+    }//GEN-LAST:event_yearlevelActionPerformed
 
     private void registerbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerbtnActionPerformed
         String fullName = fullname.getText();
         String phoneNumber = phone.getText();
         String userGender = male.isSelected() ? "Male" : "Female";
         String userId = studentsid.getText();
-        String userSpecialization = specialization.getText();
+        String userYearLevel = yearlevel.getText();
 
         // Validate and parse grades
-        double gradeIAS101 = parseGrade(CC100.getText());
-        double gradeMS102 = parseGrade(CC101.getText());
-        double gradeITTrends100 = parseGrade(IM101.getText());
-        double gradeSA101 = parseGrade(GE5.getText());
-        double gradeITElec1 = parseGrade(GE1.getText());
-        double gradeMST100 = parseGrade(GE4.getText());
-        double gradeVD101 = parseGrade(PE1.getText());
+        double gradeCC100 = parseGrade(CC100.getText());
+        double gradeCC101 = parseGrade(CC101.getText());
+        double gradeIM101 = parseGrade(IM101.getText());
+        double gradeGE5 = parseGrade(GE5.getText());
+        double gradeGE1 = parseGrade(GE1.getText());
+        double gradeGE4 = parseGrade(GE4.getText());
+        double gradePE1 = parseGrade(PE1.getText());
+        double gradeNSTP100 = parseGrade(NSTP100.getText());
 
-        if (gradeIAS101 < 0 || gradeMS102 < 0 || gradeITTrends100 < 0 || gradeSA101 < 0 ||
-            gradeITElec1 < 0 || gradeMST100 < 0 || gradeVD101 < 0) {
+        if (gradeCC100 < 0 || gradeCC101 < 0 || gradeIM101 < 0 || gradeGE5 < 0 ||
+            gradeGE1 < 0 || gradeGE4 < 0 || gradePE1 < 0 || gradeNSTP100 < 0) {
             JOptionPane.showMessageDialog(this, "Please enter valid grades for all subjects.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         try {
-            String sql = "INSERT INTO grades (fullname, phone, gender, studentsid, specialization, IAS101, MS102, ITTrends100, SA101, ITElec1, MST100, VD101) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO firstyear1stsem (fullname, phone, gender, studentsid, yearlevel, CC100, CC101, IM101, GE5, GE1, GE4, PE1, NSTP100) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement stmt = (PreparedStatement) con.prepareStatement(sql);
             stmt.setString(1, fullName);
             stmt.setString(2, phoneNumber);
             stmt.setString(3, userGender);
             stmt.setString(4, userId);
-            stmt.setString(5, userSpecialization);
-            stmt.setDouble(6, gradeIAS101);
-            stmt.setDouble(7, gradeMS102);
-            stmt.setDouble(8, gradeITTrends100);
-            stmt.setDouble(9, gradeSA101);
-            stmt.setDouble(10, gradeITElec1);
-            stmt.setDouble(11, gradeMST100);
-            stmt.setDouble(12, gradeVD101);
+            stmt.setString(5, userYearLevel);
+            stmt.setDouble(6, gradeCC100);
+            stmt.setDouble(7, gradeCC101);
+            stmt.setDouble(8, gradeIM101);
+            stmt.setDouble(9, gradeGE5);
+            stmt.setDouble(10, gradeGE1);
+            stmt.setDouble(11, gradeGE4);
+            stmt.setDouble(12, gradePE1);
+            stmt.setDouble(13, gradeNSTP100);
 
             // Execute the INSERT statement
             int rowsInserted = stmt.executeUpdate();
@@ -647,7 +648,7 @@ public class add1stGrades extends javax.swing.JDialog {
     private javax.swing.JRadioButton male;
     private javax.swing.JTextField phone;
     private javax.swing.JButton registerbtn;
-    private javax.swing.JTextField specialization;
     private javax.swing.JTextField studentsid;
+    private javax.swing.JTextField yearlevel;
     // End of variables declaration//GEN-END:variables
 }

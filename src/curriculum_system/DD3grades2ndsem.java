@@ -27,13 +27,13 @@ import javax.swing.table.TableCellEditor;
  *
  * @author Edmar
  */
-public class AP2grades extends javax.swing.JInternalFrame {
+public class DD3grades2ndsem extends javax.swing.JInternalFrame {
 
    
     
     Connection con;
     
-    public AP2grades() {
+    public DD3grades2ndsem() {
         initComponents();
         Connect ();
         updateGWAInDatabase();
@@ -269,14 +269,14 @@ private void populateTable() {
                 {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Fullname", "NET101", "DP101", "ITSYS102", "CC104", "GE8", "GE7", "GE9", "PE3", "GWA", "Action"
+                "Fullname", "IPT101", "PT101", "PROG3", "TECH101", "ITBusi101", "GE17", "ITElec2A", "ITElec3A", "GWA", "Action"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, true
+                false, false, false, false, false, false, false, false, false, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -292,6 +292,7 @@ private void populateTable() {
         table.setSelectionBackground(new java.awt.Color(8, 114, 15));
         jScrollPane2.setViewportView(table);
         if (table.getColumnModel().getColumnCount() > 0) {
+            table.getColumnModel().getColumn(0).setPreferredWidth(140);
             table.getColumnModel().getColumn(10).setPreferredWidth(140);
         }
 
@@ -336,7 +337,7 @@ private void populateTable() {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddActionPerformed
-    add2ndGrades dialog = new add2ndGrades(null, true);
+    add3rdGrades dialog = new add3rdGrades(null, true);
     dialog.setVisible(true);
     
     // After the dialog is closed, update the table
